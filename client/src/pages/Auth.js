@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE, ADMIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import {login, registration} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -27,6 +27,9 @@ const Auth = observer(() => {
             }
             user.setUser(user)
             user.setIsAuth(true)
+            if (data.role === 'ADMIN')
+                user.setIsAdmin(true)
+            else user.setIsAdmin(false)
             history.push(SHOP_ROUTE)
         } catch (e) {
             alert(e.response.data.message)

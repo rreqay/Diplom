@@ -5,6 +5,12 @@ import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
 import DevicePage from "./pages/DevicePage";
 
+export const adminRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: Admin
+    },
+]
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
