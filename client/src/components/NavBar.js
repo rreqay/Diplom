@@ -3,11 +3,12 @@ import {Context} from "../index";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {NavLink} from "react-router-dom";
-import {ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE,BASKET_ROUTE } from "../utils/consts";
 import {Button} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import Container from "react-bootstrap/Container";
 import {useHistory} from 'react-router-dom'
+import Search from "./Search/Search";
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
@@ -20,7 +21,8 @@ const NavBar = observer(() => {
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <NavLink style={{color:'white'}} to={SHOP_ROUTE}>КупиДевайс</NavLink>
+                <NavLink className="mr-3" style={{color:'white'}} to={SHOP_ROUTE}>КупиДевайс</NavLink>
+                <Search></Search>
                 {user.isAuth ?
                     <Nav className="ml-auto" style={{color: 'white'}}>
                         {user.isAdmin &&
@@ -31,6 +33,7 @@ const NavBar = observer(() => {
                                 Админ панель
                             </Button>
                         }
+                        <Button className="ml-2" variant={"outline-light"} onClick={() => history.push(BASKET_ROUTE)}>Корзина</Button>
                         <Button
                             variant={"outline-light"}
                             onClick={() => logOut()}
@@ -43,6 +46,7 @@ const NavBar = observer(() => {
                     <Nav className="ml-auto" style={{color: 'white'}}>
                         <Button variant={"outline-light"} onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
                     </Nav>
+
                 }
             </Container>
         </Navbar>

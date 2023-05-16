@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import bigStar from '../assets/bigStar.png'
-import {useParams} from 'react-router-dom'
+import {NavLink, useParams} from 'react-router-dom'
 import {fetchOneDevice} from "../http/deviceAPI";
+import {BASKET_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
 
 const DevicePage = () => {
     const [device, setDevice] = useState({info: []})

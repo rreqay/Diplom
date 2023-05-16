@@ -1,0 +1,148 @@
+.search__form {
+    position: relative;
+}
+
+.search__searchRow {
+    width: 400px;
+}
+
+.search__input{
+    height: 40px;
+    padding-right: 40px;
+}
+
+.search__closeButton {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 0;
+    color: black;
+}
+
+.search__closeButton_active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.search__closeButton svg{
+    width: 17px;
+    height: 17px;
+}
+
+.search__searchButton {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%);
+    color: white;
+    padding: 0;
+}
+
+.search__searchButton svg{
+    width: 17px;
+    height: 17px;
+    stroke: currentColor;
+}
+
+.search__showSearch {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-right: -8px;
+    flex-shrink: 0;
+    order: 1;
+    padding: 0;
+}
+
+.search__showSearch svg{
+    width: 16px;
+    height: 16px;
+    stroke: white;
+}
+
+.search__hideSearch {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-left: -9px;
+    padding: 0;
+    color: black;
+}
+
+.search__hideSearch svg{
+    width: 22px;
+    height: 22px;
+}
+
+@media (max-width: 1280px){
+    .search__searchRow{
+        width: 370px;
+    }
+}
+
+@media (max-width: 769px) {
+    /*.search__closeButton svg {*/
+    /*    color: white;*/
+    /*}*/
+    .search__showSearch{
+        display: flex;
+    }
+    .search__hideSearch{
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .search__form{
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        transition: opacity 0.3s;
+    }
+    .search__form__visible{
+        opacity: 1;
+        pointer-events: all;
+    }
+    .search__searchRow {
+        width: 100%;
+        height: inherit;
+        padding-left: 35px;
+    }
+    .search__input{
+        height: inherit;
+        border-radius: 0;
+        padding-left: 40px;
+        font-size: 16px;
+        line-height: 16px;
+    }
+    .search__searchButton{
+        display: none;
+    }
+}
