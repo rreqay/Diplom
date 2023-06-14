@@ -1,7 +1,8 @@
 const uuid = require('uuid')
 const path = require('path');
-const {Device, DeviceInfo} = require('../models/models')
+const {Device, DeviceInfo, BasketDevice, Basket, User} = require('../models/models')
 const ApiError = require('../error/ApiError');
+const { Op } = require('sequelize')
 
 class DeviceController {
     async create(req, res, next) {
@@ -40,14 +41,32 @@ class DeviceController {
             devices = await Device.findAndCountAll({limit, offset})
         }
         if (brandId && !typeId) {
-            devices = await Device.findAndCountAll({where:{brandId}, limit, offset})
+            devices = await Device.findAndCountAll({where: brandId, limit, offset})
         }
         if (!brandId && typeId) {
-            devices = await Device.findAndCountAll({where:{typeId}, limit, offset})
+            devices = await Device.findAndCountAll({where: typeId, limit, offset})
         }
         if (brandId && typeId) {
-            devices = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
+            devices = await Device.findAndCountAll({where: typeId, brandId, limit, offset})
         }
+        return res.json(devices)
+    }
+
+    async getAllByName(req, res) {
+        let {page, limit} = req.query
+        const {name} = req.params
+        page = page || 1
+        limit = limit || 9
+        let offset = page * limit - limit
+        
+        const devices = await Device.findAndCountAll({
+            where: { 
+                name: {[Op.iLike]: name? `%${name}%` : '%'}
+            }, 
+            limit, 
+            offset
+        })
+
         return res.json(devices)
     }
 

@@ -2,15 +2,29 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import bigStar from '../assets/bigStar.png'
 import {NavLink, useParams} from 'react-router-dom'
-import {fetchOneDevice} from "../http/deviceAPI";
+import {createBasketDevice, fetchOneBasketDevice, fetchOneDevice, fetchUserBasket} from "../http/deviceAPI";
 import {BASKET_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
+import { useContext } from 'react';
+import {Context} from "../index";
+import {useHistory} from 'react-router-dom'
 
 const DevicePage = () => {
+    const history = useHistory()
     const [device, setDevice] = useState({info: []})
+    const [isOnBasket, setOnBasket] = useState(false)
+    const {user} = useContext(Context)
     const {id} = useParams()
     useEffect(() => {
         fetchOneDevice(id).then(data => setDevice(data))
+        fetchOneBasketDevice(id, user.user.id).then(data => data !== null && setOnBasket(true))
     }, [])
+
+    const onAddBasket = () => {
+        fetchUserBasket(user.user.id).then(basket => {
+            console.log(basket)
+            createBasketDevice(id, basket.id).then(() => {setOnBasket(true)})
+        })
+    }
 
     return (
         <Container className="mt-3">
@@ -35,7 +49,15 @@ const DevicePage = () => {
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
                         <h3>От: {device.price} руб.</h3>
-                        <Button variant={"outline-dark"}>Добавить в корзину</Button>
+                        {!isOnBasket ?
+                            <Button onClick={onAddBasket} variant={"outline-dark"}>
+                                Добавить в корзину
+                            </Button>
+                            : 
+                            <Button onClick={() => history.push(BASKET_ROUTE)} variant={"outline-dark"}>
+                                Перейти в корзину
+                            </Button>
+                        }
                     </Card>
                 </Col>
             </Row>
