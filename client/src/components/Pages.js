@@ -12,6 +12,8 @@ const Pages = observer(() => {
         pages.push(i + 1)
     }
 
+    console.log(device.limit)
+
     return (
         <Pagination className="mt-3">
             {pages.map(page =>

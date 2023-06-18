@@ -8,6 +8,13 @@ const TypeBar = observer(() => {
     const {device} = useContext(Context)
     return (
         <ListGroup>
+            <ListGroup.Item
+                    style={{cursor: 'pointer'}}
+                    active={!device.selectedType.id }
+                    onClick={() => device.setSelectedType({})}
+                >
+                    Показать всё
+                </ListGroup.Item>
             {device.types.map(type =>
                 <ListGroup.Item
                     style={{cursor: 'pointer'}}

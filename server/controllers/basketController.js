@@ -73,6 +73,19 @@ class BasketController {
         }  
     }
 
+    async deleteBasketDevice(req, res) {
+        const {id: basketDeviceId} = req.params
+        if(basketDeviceId){
+            const basketDevice = await BasketDevice.findOne({
+                where: {id: basketDeviceId}
+            })
+            basketDevice.destroy()
+            return res.json(basketDevice)
+        } else {
+            return res.json(null)
+        }  
+    }
+
 }
 
 module.exports = new BasketController()

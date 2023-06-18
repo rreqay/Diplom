@@ -1,0 +1,20 @@
+.rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.rating__item {
+    font-size: 30px;
+    color: rgb(209, 209, 209);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.rating__item__selected{
+    color: orange;
+}
+
+.rating__item:hover,
+.rating__item:hover ~ .rating__item {
+    color: orange;
+}
